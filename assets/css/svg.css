@@ -1,0 +1,12 @@
+.hexagon {
+  pointer-events: all;
+}
+
+.ularium path {
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.ularium path.animate {
+  opacity: 1;
+}

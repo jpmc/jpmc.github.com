@@ -1,0 +1,30 @@
+/* background */
+body { 
+  background-color: black;
+  color: white;
+}
+
+.coming-soon {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+/*
+<flex-break></flex-break>
+flex-break {
+  display: inline-block;
+  flex-basis: 100%;
+  width: 0px; 
+  height: 0px; 
+  overflow: hidden;
+}
+*/
+
+#svg-logo {
+  flex-basis: 400px;
+  flex-grow: 0.25;
+}
