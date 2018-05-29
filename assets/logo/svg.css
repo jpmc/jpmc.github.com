@@ -3,7 +3,7 @@
   fill: transparent;
   stroke-width: 3px;
 }
-.ularium path, .reg path {
+path {
   fill: #080;
 }
 .reg {
