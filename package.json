@@ -1,0 +1,29 @@
+{
+  "name": "regularium_github_pages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "gulp-clean-css": "^3.9.4",
+    "gulp-svgo": "^1.5.4",
+    "gulp-minify": "^2.1.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-string-replace": "^1.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpmc/jpmc.github.com.git"
+  },
+  "author": "James Corrao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpmc/jpmc.github.com/issues"
+  },
+  "homepage": "https://github.com/jpmc/jpmc.github.com#readme"
+}

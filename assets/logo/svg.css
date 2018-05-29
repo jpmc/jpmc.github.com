@@ -1,0 +1,18 @@
+.hexagon polygon {
+  stroke:#080;
+  fill: transparent;
+  stroke-width: 3px;
+}
+.ularium path, .reg path {
+  fill: #080;
+}
+.reg {
+  pointer-events: all;
+}
+.ularium path {
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.ularium path.animate {
+  opacity: 1;
+}

@@ -1,0 +1,1 @@
+const reg=document.querySelectorAll(".hexagon, .reg"),ularium=document.querySelectorAll(".ularium path"),handler=e=>()=>{ularium.forEach((a,r,l)=>{let t="add"==e?r:l.length-r;l[r].style.transitionDelay=`${50*t}ms`,l[r].classList[e]("animate")})};reg.forEach(e=>{e.addEventListener("mouseenter",handler("add"),!1),e.addEventListener("mouseleave",handler("remove"),!1)});
