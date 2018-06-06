@@ -2,9 +2,9 @@ let gulp = require("gulp"),
   fs = require("fs"),
   svgo = require("gulp-svgo"),
   concat = require("gulp-concat"),
-  minify = require("gulp-minify"),
+  uglify = require("gulp-uglify-es").default,
   cleanCss = require("gulp-clean-css"),
-  replace = require("gulp-string-replace");
+  replace = require("gulp-replace");
 
 // BEGIN LOGO COMPILATION TASKS
 gulp.task("logo-css", function() {
@@ -17,8 +17,9 @@ gulp.task("logo-css", function() {
 gulp.task("logo-js", function() {
   return gulp
     .src(["assets/logo/svg.js"])
-    .pipe(minify())
-    .pipe(gulp.dest("assets/logo"));
+    .pipe(concat("svg-min.js"))
+    .pipe(uglify())
+    .pipe(gulp.dest("assets/logo"))
 });
 gulp.task("logo-svg", function() {
   return gulp
