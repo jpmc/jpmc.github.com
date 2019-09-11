@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Simple D&D Calculator</title>
+    <meta name="description" content="A Simple D&D Calculator">
+    <meta name="author" content="SitePoint">
+    <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    <link rel="stylesheet" href="styles.css" />
+    <script src="calc.js"></script>
+</head>
+<body>
+<fieldset>
+    <legend>True Distance Calculator</legend>
+    <label>Your Elevation: <input id="yElev" type="number" value="0" step="1"/></label>
+    <p class="footnote">Usually zero. Leave as such unless DM instructed or complications arise.</p>
+    <br />
+    <label>Enemy Elevation: <input id="eElev" type="number" value="0" step="1"/></label>
+    <p class="footnote">The elevation of the enemy, usually relative to your (the players) own.</p>
+    <br />
+    <label>Enemy Distance: <input id="eDist" type="number" value="0" step="1"/></label>
+    <p class="footnote">The distance on the 2D board between the player and the target.</p>
+    <br />
+    Rounding Mode:
+    <label><input type="radio" name="roundMode" value="0" checked="checked" /> Always Up</label>
+    <label><input type="radio" name="roundMode" value="1" /> Always Down</label>
+    <label><input type="radio" name="roundMode" value="2" /> Nearest <span class="footnote">("5 and above, etc")</span></label>
+    <br />
+    <input type="button" value="Calculate Distance" onclick="elevCalc();" /> <input id="tDist" type="text" value="= ???" readonly="readonly" disabled="disabled" />
+</fieldset>
+<fieldset>
+    <legend>Currency Calculator</legend>
+    <table>
+        <tr><th>Currency</th><th>Amount</th></tr>
+        <tr>
+            <td><label for="cp">Copper</label></td>
+            <td><input type="number" id="cp" min="0" step="1" value="0" /></td>
+        </tr>
+        <tr>
+            <td><label for="sp">Silver</label></td>
+            <td><input type="number" id="sp" min="0" step="1" value="0" /></td>
+        </tr>
+        <tr>
+            <td><label for="gp">Gold</label></td>
+            <td><input type="number" id="gp" min="0" step="1" value="0" /></td>
+        </tr>
+        <tr>
+            <td><label for="pp">Platinum</label></td>
+            <td><input type="number" id="pp" min="0" step="1" value="0" /></td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td colspan="2">
+            = <input id="result" type="text" value="???"  readonly disabled />
+            <p class='footnote'>Effective Gold Power</p>
+        </td></tr>
+        <tr><td colspan="2">
+            &#8801; <textarea id="optimal" readonly disabled>???</textarea>
+            <p class='footnote'>Optimal/Densest Change</p>
+        </td></tr>
+    </table>
+</fieldset>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

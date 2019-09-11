@@ -1,0 +1,65 @@
+/** GLOBAL **/
+body {
+    background: url('/assets/img/dndbg.jpg');
+    font-variant: small-caps;
+    font-size: 20px;
+}
+fieldset {
+    display:inline-block;
+    vertical-align: top;
+}
+input[type=number] {
+    background: rgba(235, 235, 228, 0.9);
+    float: right;
+    clear: both;
+    text-align: right;
+    width: 4em;
+    margin-left:1em;
+    font-weight: bold;
+    border: solid 1px black;
+}
+input[readonly] {
+    padding: 0 5px;
+}
+/** Up-down arrows in number inputs always visible. **/
+input::-webkit-inner-spin-button{
+    opacity:1;
+}
+label {
+    display: block;
+}
+.footnote {
+     font-variant: initial;
+     font-size: 11px;
+     font-family: sans-serif;
+     max-width: 20em;
+     margin: 0;
+     padding-top: 0.5em;
+     font-style: italic;
+     text-align: right;
+ }
+/** DISTANCE SPECIFIC **/
+#tDist {
+    width: 4em;
+    float:right;
+}
+/** TABLE SPECIFIC **/
+table {
+    font-variant: small-caps;
+}
+th {
+    color: white;
+    background-color: rgba(10,10,10,0.5);
+    padding: 2px 8px;
+}
+td {
+    text-align: center;
+}
+table input[type=number] {
+    width: 80%;
+    margin: 0 auto;
+}
+table [readonly] {
+    vertical-align: middle;
+    width: 80%;
+}
