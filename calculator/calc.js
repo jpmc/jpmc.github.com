@@ -32,24 +32,21 @@ function elevCalc() {
     $i('tDist').value = "= " + roundFunc(Math.sqrt((eDist*eDist) + (diffElev*diffElev)));
 }
 
-//609 cp, 479 sp, 502gp, 424pp
-
 //// CURRENCY POWER CALCULATOR ////
+
+// Currency value storage.
+let values = {'pp':0, 'gp':0, 'sp':0, 'cp':0,};
+
+// Detect and Recalculate Currency options.
+let recalculate = (evt) => {
+    let element = evt.target;
+    values[element.id] = element.value;
+    document.getElementById('result').value = gold_power(values) + " gp";
+    document.getElementById('optimal').innerText = optimal_string(values);
+};
 
 // Default document.ready() handler.
 function currencyHandler() {
-    // Currency value storage.
-    let values = {'pp':0, 'gp':0, 'sp':0, 'cp':0,};
-
-    // Detect and Recalculate Currency options.
-    let recalculate = (evt) => {
-        let element = evt.target;
-        values[element.id] = element.value;
-        console.log(values)
-        document.getElementById('result').value = gold_power(values) + " gp";
-        document.getElementById('optimal').innerText = optimal_string(values);
-    };
-
     // Attach recalculation detection to all inputs, covering all possible events.
     ['keyup', 'change', 'click'].forEach((type) =>
         ['cp', 'sp', 'gp', 'pp'].forEach((id) =>{
@@ -88,4 +85,17 @@ function optimal_change(currency) {
 function optimal_string(currency) {
     let optimal = optimal_change(currency);
     return `${optimal['pp']} pp, ${optimal['gp']} gp, ${optimal['sp']} sp, ${optimal['cp']} cp`
+}
+
+// Populates and recalculates sample currency value for demonstration.
+function currencySample() {
+    //609 cp, 479 sp, 502gp, 424pp
+    let sample = {'pp': 424, 'gp': 502, 'sp': 479, 'cp': 609};
+
+    // Update each currency then force update.
+    for (let key in sample) {
+        document.getElementById(key).value = sample[key];
+        document.getElementById(key).click();
+    }
+
 }

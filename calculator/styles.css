@@ -63,3 +63,12 @@ table [readonly] {
     vertical-align: middle;
     width: 80%;
 }
+button[name=calcSample] {
+    border-radius: 50%;
+    font-size: 12px;
+    width: 22px;
+}
+button[name=calcSample]:hover {
+    color: white;
+    background-color: darkgray;
+}
