@@ -1,0 +1,47 @@
+<html>
+<!-- Initial Thread: https://www.reddit.com/r/webdev/comments/hg1gnx/whats_the_best_way_to_create_this_button_with/ -->
+<head>
+    <meta charset="utf-8">
+    <title>cool button snippet</title>
+    <style>
+        /* CSS variables: Keep 'em or transpile them. */
+        :root {
+            --accentColor: #e91d24;
+            --borderColor: rgba(233, 29, 36, 0.25);
+            --pageBg: #0e1428;
+        }
+
+        /* NOT BUTTON RELATED, PAGE SETUP. Simple full-page centered. */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        body {
+            background-color: var(--pageBg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+            Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .center { text-align: center; }
+
+    </style>
+    <!-- Actual cool button styles, for componentization reasons. -->
+    <link rel="stylesheet" href="cool-button.css" />
+    <!-- Purely JS for testing color schemes in demo page. Not needed for button. -->
+    <script type="text/javascript" src="cool-button-demo.js" defer></script>
+</head>
+<body onload="cyclePalette(0);">
+<!-- Current palette note. -->
+<p style="position:absolute; top: 10px; left:10px;" id="paletteInfo">N/A</p>
+<!-- Actual component code (combined with CSS above) -->
+<a class='cool-btn' href="#" onclick="cyclePalette();">
+    <span class="center">Click to cycle<br />through palettes.</span>
+</a>
+</body>
+</html>

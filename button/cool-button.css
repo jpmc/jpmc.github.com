@@ -1,0 +1,61 @@
+/* CSS variables: Keep 'em or transpile them. Already defined on main page. */
+/*
+    :root {
+        --accentColor: #e91d24;
+        --borderColor: rgba(233, 29, 36, 0.25);
+    }
+ */
+
+a {
+    position: relative;
+    padding: 0.5rem;
+    color: var(--accentColor);
+    text-decoration: none;
+    border: 1px solid var(--borderColor);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+a:focus {
+    outline: none;
+}
+
+a:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    width: 0;
+    height: 0;
+    border-top: 1rem solid var(--accentColor);
+    border-right: 1rem solid transparent;
+    z-index: 1;
+}
+
+a span {
+    position: relative;
+    display: block;
+    padding: 1.25rem 3rem;
+    border: 1px solid var(--accentColor);
+}
+
+a span:before {
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    content: "";
+    border-top: 1.5rem solid var(--accentColor);
+    border-right: 1.5rem solid transparent;
+}
+
+a span:after {
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    content: "";
+    /** THIS IS THE TRANSPARENT STRIP CUTOUT OF THE CORNER. */
+    border-top: 1.5rem solid var(--pageBg);
+    border-right: 1.5rem solid transparent;
+}
