@@ -47,7 +47,7 @@ gulp.task("logo-merge", function() {
     .pipe(gulp.dest("assets/logo"));
 });
 
-gulp.task("logo-build", ["logo-js", "logo-css", "logo-svg", "logo-merge"]);
+gulp.task("logo-build", gulp.series("logo-js", "logo-css", "logo-svg", "logo-merge"));
 // END LOGO COMPILATION TASKS
 
 gulp.task("pack-css", function() {
@@ -57,4 +57,4 @@ gulp.task("pack-css", function() {
     .pipe(cleanCss())
     .pipe(gulp.dest("build/css"));
 });
-gulp.task("default", ["pack-css", "logo-build"]);
+gulp.task("default", gulp.series("pack-css", "logo-build"));

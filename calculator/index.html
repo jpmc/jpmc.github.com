@@ -1,8 +1,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Simple D&D Calculator</title>
-    <meta name="description" content="A Simple D&D Calculator">
+    <title>Simple D&D Calculators</title>
+    <meta name="description" content="A Simple Set of D&D Calculators">
     <meta name="author" content="SitePoint">
     <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
     <link rel="stylesheet" href="styles.css" />
@@ -59,8 +59,62 @@
     </table>
     <button name="calcSample" title="Click here for an example!" onclick="currencySample()">!</button>
 </fieldset>
-<script type="text/javascript">
 
-</script>
+<fieldset>
+    <legend>5th Edition Income Calculator</legend>
+    <div class="summary">
+        <p>The following are various settings for calculating Monthly Income for a character.</p>
+        <br />
+        <p> You can choose a given bracket which has default minimum values, or input your own if you know them.</p>
+    </div>
+    <br />
+    <label for="grossincome">Income Bracket: <select id="grossincome">
+        <option value="6">Poor [6gp]</option>
+        <option value="30">Modest [30gp]</option>
+        <option value="60">Comfortable [60gp]</option>
+        <option value="120">Wealthy [120gp]</option>
+        <option value="300">Aristocratic [300gp]</option>
+        <option value="0">Other</option> <!-- Make this trigger/hide/show a text box or something -->
+    </select></label>
+    <p class='footnote'>Gross income earned before any deductions/spending.</p>
+    <br />
+    <label for="lifestyle"> Lifestyle Expenses: <select id="lifestyle">
+        <option value="3">Poor [3gp]</option>
+        <option value="15">Modest [15gp]</option>
+        <option value="30">Comfortable [30gp]</option>
+        <option value="60">Wealthy [60gp]</option>
+        <option value="150">Aristocratic [150gp]</option>
+        <option value="0">Other</option> <!-- Make this trigger/hide/show a text box or something -->
+    </select></label>
+    <p class='footnote'>All of the costs associated with living for ones self. Meals, rent, buying/repairing tools & weapons,etc.</p>
+    <br />
+    <label for="upkeep">Upkeep Costs: <select id="upkeep">
+        <option value="2">Poor [2gp]</option>
+        <option value="10">Modest [10gp]</option>
+        <option value="20">Comfortable [20gp]</option>
+        <option value="40">Wealthy [40gp]</option>
+        <option value="100">Aristocratic [100gp]</option>
+        <option value="0">Other</option> <!-- Make this trigger/hide/show a text box or something -->
+    </select></label>
+    <p class='footnote'>If the NPC or Character has an occupation or business, the upkeep for it. Running a farm, a tavern, a bank, etc.</p>
+    <br />
+    <label for="taxes">Tax Bracket: <select id="taxes">
+        <option value="0.6">Poor [6sp]</option>
+        <option value="3">Modest [3gp]</option>
+        <option value="6">Comfortable [6gp]</option>
+        <option value="12">Wealthy [12gp]</option>
+        <option value="30">Aristocratic [30gp]</option>
+        <option value="0">Other</option> <!-- Make this trigger/hide/show a text box or something -->
+    </select></label>
+    <p class='footnote'>Taxes levied by the territory they reside in, if any.</p>
+    <br />
+    <label for="netincome">Net Income: <input type="text" value="N/A" disabled="disabled" readonly="readonly" id="netincome"/></label>
+    <p class="footnote"><a href="https://www.reddit.com/r/DnDBehindTheScreen/comments/3o2ydl/5e_commoner_life_and_economy/">Presets lifted from this reddit thread.</a></p>
+</fieldset>
+<fieldset>
+    <legend>5th Edition Point Buy</legend>
+    <p class="footnote" style="text-align: left">Rather than reinventing the wheel, I will link to a decent tool</p>
+    <br><a target="_blank" href="http://chicken-dinner.com/5e/5e-point-buy.html">here.</a>
+</fieldset>
 </body>
 </html>

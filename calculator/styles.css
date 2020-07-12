@@ -8,7 +8,7 @@ fieldset {
     display:inline-block;
     vertical-align: top;
 }
-input[type=number] {
+input[type=number], select {
     background: rgba(235, 235, 228, 0.9);
     float: right;
     clear: both;
@@ -17,6 +17,9 @@ input[type=number] {
     margin-left:1em;
     font-weight: bold;
     border: solid 1px black;
+}
+select {
+    width: 12em;
 }
 input[readonly] {
     padding: 0 5px;
@@ -28,6 +31,17 @@ input::-webkit-inner-spin-button{
 label {
     display: block;
 }
+.summary {
+    border: 1px solid black;
+    background-color: rgba(0,0,0,0.15);
+    padding: 0.5em;
+    font-size: 0.9em;
+    max-width: 17em;"
+}
+.summary > p {
+    margin: 0;
+}
+
 .footnote {
      font-variant: initial;
      font-size: 11px;
