@@ -11,9 +11,9 @@ var palettes = [
         },
         {
             friendlyName: "Neutral-Light",
-            pageBg: "#aaa",
-            btnAccent: "#04a",
-            btnBorder: "rgba(0, 100, 200, 0.5)"
+            pageBg: "#04a",
+            btnAccent: "#aaa",
+            btnBorder: "rgba(170, 170, 170, 0.5)"
         },
         {
             friendlyName: "Poison-Dark",
