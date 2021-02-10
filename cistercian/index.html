@@ -106,11 +106,12 @@
 
             // Parse the individual digits. Each digit is a quadrant of the cipher.
             let mode = 0;
-            while (number > 0 && mode < 4) {
+            let tmp = number;
+            while (tmp > 0 && mode < 4) {
                 // Pass digit and quadrant mode.
-                drawQuadrant(number % 10, mode, ctx);
+                drawQuadrant(tmp % 10, mode, ctx);
                 // Pop off digit, increment the mode, continue.
-                number = Math.floor(number / 10);
+                tmp = Math.floor(tmp / 10);
                 mode++;
             }
             // Generate/update download link after drawing the cipher to screen.
