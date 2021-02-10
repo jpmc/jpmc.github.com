@@ -73,9 +73,10 @@
         // Restrict input values being entered into the number field.
         function restrict(evt) {
             // Don't prevent backspace or deletions.
-            if (evt.type === 'keydown' && evt.keyCode !== 8 && evt.keyCode !== 46) {
-                // Prevent typing non-numeric inputs.
-                if (evt.keyCode < 48 || evt.keyCode > 57) {
+            const key = evt.keyCode;
+            if (key !== 8 && key !== 46) {
+                // Prevent typing non-numeric inputs. Both number row and numpad digits.
+                if (!(key >= 48 && key <= 57) && !(key >= 96 && key <= 105)) {
                     evt.preventDefault();
                 }
                 // Prevent typing in more than 4 digits.
