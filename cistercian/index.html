@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cistercian Numerals</title>
+    <style>
+        /* Overall "Structural" Layout */
+        #flex-container {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            min-width: 432px;
+            max-width: 1080px;
+        }
+        h1, fieldset { flex: 1 1 100%; }
+        fieldset.middle {
+            flex: 1 0.5;
+            text-align: center;
+        }
+
+        /* Aesthetic Touchup */
+        body { background: url('../assets/img/dndbg.jpg');}
+        h1 { text-align: center; }
+        legend { font-weight: bold; }
+        fieldset { background: rgba(255,255,255,0.5); padding: 1em; }
+        input { font-size: 2em; margin-bottom: 0.5em; }
+        canvas { height: 192px; width: 128px; }
+    </style>
+    <script>
+        // Page load events: Default Canvas Image, Event Bindings
+        document.addEventListener("DOMContentLoaded", function(event) {
+            // Fetch Canvas context for drawing.
+            const canvas = document.getElementById('cipher');
+            const ctx = canvas.getContext('2d');
+            ctx.lineWidth = 10;
+
+            // Draw initial cipher state.
+            draw(ctx, 0);
+
+            // Attach input validation handler.
+            const numberInput = document.querySelector('input[type=number]');
+            numberInput.addEventListener('keydown', restrict);
+            numberInput.addEventListener('paste', function (evt) {
+                evt.preventDefault();
+                let content = parseInt(evt.clipboardData.getData('text'), 10);
+                // Check if valid number, paste successfully if valid.
+                if (!isNaN(content) && content < 10000) {
+                    evt.target.value = content;
+                }
+            });
+
+            // Attach submit handler for the "Generate" button.
+            document.querySelector('input[value=Generate]').addEventListener('click', function (evt) {
+                evt.preventDefault();
+                draw(ctx, numberInput.value);
+            });
+            // Attach event handler to clear the form and cipher.
+            document.querySelector('input[value=Clear]').addEventListener('click', function (evt) {
+                evt.preventDefault();
+                numberInput.value = '';
+                draw(ctx, 0);
+            });
+            // Attach event handler to generate a random number and accompanying cipher.
+            document.querySelector("input[value='Try Me!']").addEventListener('click', function (evt) {
+                evt.preventDefault();
+                let random = Math.floor(Math.random() * 9999) + 1;
+                numberInput.value = random;
+                draw(ctx, random);
+            });
+        });
+
+        // Restrict input values being entered into the number field.
+        function restrict(evt) {
+            // Don't prevent backspace or deletions.
+            if (evt.type === 'keydown' && evt.keyCode !== 8 && evt.keyCode !== 46) {
+                // Prevent typing non-numeric inputs.
+                if (evt.keyCode < 48 || evt.keyCode > 57) {
+                    evt.preventDefault();
+                }
+                // Prevent typing in more than 4 digits.
+                if (evt.target.value.length >= 4) {
+                    evt.preventDefault();
+                }
+            }
+        }
+
+        // Generate download link of visible cipher on screen.
+        function generateDownload(number, canvas) {
+            const downloadLink = document.getElementById('download');
+            downloadLink.setAttribute('href', canvas.toDataURL('image/png'));
+            downloadLink.setAttribute('download', number + "-cipher.png");
+        }
+
+        // Draw the given number to the provided 2D Canvas context.
+        function draw(ctx, number) {
+            // Save relevant canvas information for drawing & plotting.
+            const w = ctx.canvas.width;
+            const h = ctx.canvas.height;
+
+            // Clear old canvas to avoid stacking between generations.
+            ctx.clearRect(0, 0, w, h);
+
+            // Draw base zero numeral.
+            drawLine(ctx, [w / 2, 0], [w / 2, h]);
+
+            // Parse the individual digits. Each digit is a quadrant of the cipher.
+            let mode = 0;
+            while (number > 0 && mode < 4) {
+                // Pass digit and quadrant mode.
+                drawQuadrant(number % 10, mode, ctx);
+                // Pop off digit, increment the mode, continue.
+                number = Math.floor(number / 10);
+                mode++;
+            }
+            // Generate/update download link after drawing the cipher to screen.
+            generateDownload(number, ctx.canvas);
+        }
+
+        /* "
+            Modes" based on quadrant.
+            00 - Upper Right (1's place)
+            01 - Upper Left (10's place)
+            10 - Lower Right (100's place)
+            11 - Lower Left (1000's place)
+         */
+        function drawQuadrant(number, mode, ctx) {
+            // Save relevant canvas information for drawing & plotting.
+            const w = ctx.canvas.width;
+            const h = ctx.canvas.height;
+            const gutter = Math.ceil(ctx.lineWidth / 2);
+
+            // Draw the numeric value to the cipher.
+            let start; let height; let end;
+            switch (number) {
+                case 1:
+                    height = (mode < 2) ? gutter : h - gutter;
+                    end = (mode % 2 == 0) ? w : 0;
+                    drawLine(ctx, [w/2, height], [end, height]);
+                    break;
+                case 2:
+                    height = (mode < 2) ? (gutter + 45) : h - (gutter + 45);
+                    end = (mode % 2 == 0) ? w : 0;
+                    drawLine(ctx, [w/2, height], [end , height]);
+                    break;
+                case 3:
+                case 4:
+                    // Three and Four are the same stroke, just with some swapped points.
+                    start = (mode < 2) ? 0 : h;
+                    height = (mode < 2) ? 45 : h - 45;
+                    end = (mode % 2 == 0) ? w + gutter : 0 - gutter;
+                    if (number === 4) {
+                        [start, height] = [height, start];
+                    }
+                    drawLine(ctx, [w/2, start], [end , height]);
+                    break;
+                case 5:
+                    // Five is actually lines 1 and 4.
+                    drawQuadrant(1, mode, ctx);
+                    drawQuadrant(4, mode, ctx);
+                    break;
+                case 6:
+                    start = (mode % 2 == 0) ? w - gutter : gutter;
+                    height = (mode < 2) ? (gutter + 45) : h - (gutter + 45);
+                    end = (mode < 2) ? 0 : h;
+                    drawLine(ctx, [start, height], [start, end])
+                    break;
+                case 7:
+                    // Seven is actually the lines 1 and 6.
+                    drawQuadrant(1, mode, ctx);
+                    drawQuadrant(6, mode, ctx);
+                    break;
+                case 8:
+                    // Nine is actually the lines 2 and 6.
+                    drawQuadrant(2, mode, ctx);
+                    drawQuadrant(6, mode, ctx);
+                    break;
+                case 9:
+                    // Nine is actually the lines 1, 2, and 6.
+                    drawQuadrant(1, mode, ctx);
+                    drawQuadrant(2, mode, ctx);
+                    drawQuadrant(6, mode, ctx);
+                    break;
+                default: break;
+            }
+        }
+
+        // Simple helper to draw lines quickly.
+        // Takes two [x, y] coordinate pair tuples (arrays in this case).
+        function drawLine(ctx, begin, end) {
+            ctx.beginPath();
+            ctx.moveTo(...begin);
+            ctx.lineTo(...end);
+            ctx.stroke();
+        }
+
+    </script>
+</head>
+<body>
+<div id="flex-container">
+    <h1>Cistercian Numerals</h1>
+    <fieldset id="intro">
+        <legend>Introductory Passage</legend>
+        <p>Cistercian Numerals, aka "ciphers", were an alternate system for representing numbers that appeared around the same time Arabic numerals were introduced. These "ciphers" are a compact way to represent numbers, each singular numeral being able to represent all whole numbers between zero and 9,999.</p>
+    </fieldset>
+
+    <fieldset id="form" class="middle">
+        <legend>Input</legend>
+        <form>
+            <p>Input any number from 0 to 9999.</p>
+            <input aria-label="Number Input" name="number" type="number" min="0" max="9999" placeholder="0 - 9999" size="6" step="1" maxlength="4" required />
+            <br/>
+            <input type="submit" value="Generate">
+            <br/>
+            <input type="submit" value="Clear"> <input type="submit" value="Try Me!">
+        </form>
+    </fieldset>
+    <fieldset id="output" class="middle">
+        <legend>Output</legend>
+        <p><a id="download" href="#" download="cipher.png">Click here to download the cipher below.</a></p>
+        <canvas id="cipher" width="128px" height="192px"></canvas>
+    </fieldset>
+
+    <fieldset>
+        <legend>Footnote & References</legend>
+        <div class="footnote">
+        <p>For further insight into the topic, here are some references below to peruse.</p>
+        <ol>
+            <li><a href="https://en.wikipedia.org/wiki/The_Ciphers_of_the_Monks#">"The Ciphers of the Monks".</a> Wikipedia</li>
+            <li><a href="https://en.wikipedia.org/wiki/Cistercian_numerals">"Cistercian numerals".</a> Wikipedia</li>
+        </ol>
+    </div>
+    </fieldset>
+</div>
+</body>
+</html>
