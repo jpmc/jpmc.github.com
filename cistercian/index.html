@@ -9,7 +9,6 @@
         #flex-container {
             display: flex;
             flex-flow: row wrap;
-            justify-content: space-between;
             min-width: 432px;
             max-width: 1080px;
         }
@@ -28,18 +27,20 @@
         canvas { height: 192px; width: 128px; }
     </style>
     <script>
+        'use strict';
         // Page load events: Default Canvas Image, Event Bindings
         document.addEventListener("DOMContentLoaded", function(event) {
+            const select = document.querySelector.bind(document);
             // Fetch Canvas context for drawing.
             const canvas = document.getElementById('cipher');
             const ctx = canvas.getContext('2d');
             ctx.lineWidth = 10;
 
             // Draw initial cipher state.
-            draw(ctx, 0);
+            draw(ctx);
 
             // Attach input validation handler.
-            const numberInput = document.querySelector('input[type=number]');
+            const numberInput = select('input[type=number]');
             numberInput.addEventListener('keydown', restrict);
             numberInput.addEventListener('paste', function (evt) {
                 evt.preventDefault();
@@ -51,22 +52,21 @@
             });
 
             // Attach submit handler for the "Generate" button.
-            document.querySelector('input[value=Generate]').addEventListener('click', function (evt) {
+            select('input[value=Generate]').addEventListener('click', function (evt) {
                 evt.preventDefault();
                 draw(ctx, numberInput.value);
             });
             // Attach event handler to clear the form and cipher.
-            document.querySelector('input[value=Clear]').addEventListener('click', function (evt) {
+            select('input[value=Clear]').addEventListener('click', function (evt) {
                 evt.preventDefault();
                 numberInput.value = '';
                 draw(ctx, 0);
             });
             // Attach event handler to generate a random number and accompanying cipher.
-            document.querySelector("input[value='Try Me!']").addEventListener('click', function (evt) {
+            select("input[value='Try Me!']").addEventListener('click', function (evt) {
                 evt.preventDefault();
-                let random = Math.floor(Math.random() * 9999) + 1;
-                numberInput.value = random;
-                draw(ctx, random);
+                numberInput.value = Math.floor(Math.random() * 9999) + 1;
+                draw(ctx, numberInput.value);
             });
         });
 
@@ -94,7 +94,7 @@
         }
 
         // Draw the given number to the provided 2D Canvas context.
-        function draw(ctx, number) {
+        function draw(ctx, number = 0) {
             // Save relevant canvas information for drawing & plotting.
             const w = ctx.canvas.width;
             const h = ctx.canvas.height;
@@ -137,12 +137,12 @@
             switch (number) {
                 case 1:
                     height = (mode < 2) ? gutter : h - gutter;
-                    end = (mode % 2 == 0) ? w : 0;
+                    end = (mode % 2 === 0) ? w : 0;
                     drawLine(ctx, [w/2, height], [end, height]);
                     break;
                 case 2:
                     height = (mode < 2) ? (gutter + 45) : h - (gutter + 45);
-                    end = (mode % 2 == 0) ? w : 0;
+                    end = (mode % 2 === 0) ? w : 0;
                     drawLine(ctx, [w/2, height], [end , height]);
                     break;
                 case 3:
@@ -150,7 +150,7 @@
                     // Three and Four are the same stroke, just with some swapped points.
                     start = (mode < 2) ? 0 : h;
                     height = (mode < 2) ? 45 : h - 45;
-                    end = (mode % 2 == 0) ? w + gutter : 0 - gutter;
+                    end = (mode % 2 === 0) ? w + gutter : 0 - gutter;
                     if (number === 4) {
                         [start, height] = [height, start];
                     }
@@ -162,7 +162,7 @@
                     drawQuadrant(4, mode, ctx);
                     break;
                 case 6:
-                    start = (mode % 2 == 0) ? w - gutter : gutter;
+                    start = (mode % 2 === 0) ? w - gutter : gutter;
                     height = (mode < 2) ? (gutter + 45) : h - (gutter + 45);
                     end = (mode < 2) ? 0 : h;
                     drawLine(ctx, [start, height], [start, end])
@@ -214,7 +214,8 @@
             <br/>
             <input type="submit" value="Generate">
             <br/>
-            <input type="submit" value="Clear"> <input type="submit" value="Try Me!">
+            <input type="submit" value="Clear">
+            <input type="submit" value="Try Me!">
         </form>
     </fieldset>
     <fieldset id="output" class="middle">
