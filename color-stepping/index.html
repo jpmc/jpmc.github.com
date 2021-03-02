@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="color-step.js"></script>
+    <title>Color Stepping</title>
+    <style>
+        body { background-color: #999; }
+        .container { display: inline-block; }
+        fieldset {
+            border: 3px groove #777;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+        fieldset > fieldset { display:inline-block; }
+        label { margin: 1em; }
+        legend {font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <fieldset>
+        <legend>Instructions & Settings</legend>
+        <p>Tap/Click image to generate a new one.</p>
+        <fieldset>
+            <legend>Orientation</legend>
+            <label><input type="radio" name="orientation" value="H" onclick="updateSize(this);" autocomplete="off" checked />Horizontal</label>
+            <label><input type="radio" name="orientation" value="V" onclick="updateSize(this);" autocomplete="off" />Vertical</label>
+        </fieldset>
+        <fieldset>
+            <legend>Resolution</legend>
+            <label><input type="radio" name="resolution" onclick="updateSize(this);" autocomplete="off" value="800-800" checked/> 800x800</label>
+            <label><input type="radio" name="resolution" onclick="updateSize(this);" autocomplete="off" value="1920-1080" />1080p</label>
+            <label><input type="radio" name="resolution" onclick="updateSize(this);" autocomplete="off" value="2560-1440" />1440p</label>
+        </fieldset>
+    </fieldset>
+    <canvas id="atlas" width="800px" height="800px" data-orientation="H" ></canvas>
+</div>
+</body>
+</html>
